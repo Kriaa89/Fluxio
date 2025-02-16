@@ -31,5 +31,14 @@ program
     setupTheming(projectPath);
   });
 
+// "component" command to scaffold a new UI component
+program
+  .command('component <componentName>')
+  .description('Generate a new UI component file in src/components')
+  .action((componentName) => {
+    const createComponent = require('./commands/component');
+    createComponent(componentName);
+  });
+
 // Parse the CLI arguments
 program.parse(process.argv);
