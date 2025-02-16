@@ -18,3 +18,10 @@ Welcome to the Fluxio CLI documentation. Fluxio is an all‑in‑one UI framewor
    ```bash
    fluxio new my-app
    ```
+
+## Getting Started
+After creating your project, run:
+```bash
+cd my-app
+fluxio start
+```

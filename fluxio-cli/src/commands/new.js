@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const { handleError } = require('../utils/errorHandler');
 
 function createNewProject(projectName) {
   console.log(`Creating a new Fluxio project: ${projectName}...`);
 
   const projectPath = path.join(process.cwd(), projectName);
 
-  // Check if the project directory already exists
   if (fs.existsSync(projectPath)) {
     console.error(`Error: Directory "${projectName}" already exists.`);
     process.exit(1);
@@ -15,12 +15,10 @@ function createNewProject(projectName) {
   try {
     // Create the project directory
     fs.mkdirSync(projectPath);
-
     // Write a basic README file
     const readmeContent = `# ${projectName}\n\nThis is a Fluxio project scaffolded using the Fluxio CLI.`;
     fs.writeFileSync(path.join(projectPath, 'README.md'), readmeContent);
-
-    // Create a basic package.json for the new project
+    // Create a basic package.json
     const packageJsonContent = {
       name: projectName,
       version: "0.1.0",
@@ -33,11 +31,9 @@ function createNewProject(projectName) {
       path.join(projectPath, 'package.json'),
       JSON.stringify(packageJsonContent, null, 2)
     );
-
     console.log(`Project "${projectName}" created successfully!`);
   } catch (error) {
-    console.error(`Error creating project: ${error.message}`);
-    process.exit(1);
+    handleError(error);
   }
 }
 
